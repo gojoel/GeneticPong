@@ -22,7 +22,8 @@ class Paddle {
     int get_y() const;
     void set_y(int new_y);
     void add_to_y(int new_y);
-    int predict(Ball *ball); void AI(Ball *ball);
+    int predict(Ball *ball); 
+    void AI(Ball *ball);
 };
 
 #endif  // SRC_PADDLE_H_

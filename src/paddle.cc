@@ -4,6 +4,7 @@
 
 #include "src/ball.h"
 #include "src/pong.h"
+#include "src/GenAlg.h"
 
 const int Paddle::HEIGHT = 60;
 const int Paddle::WIDTH = 10;
@@ -90,3 +91,7 @@ void Paddle::AI(Ball *ball) {
             add_to_y(-2);
     }
 }
+
+
+
+

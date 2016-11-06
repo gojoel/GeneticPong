@@ -35,61 +35,82 @@ struct Genome
 
 class GenAlg
 {
-private:
-	//holds entire population
-	vector <Genome> vecPop;
 
-	//max population
-	int popSize;
+	private:
+		//holds entire population
+		vector <Genome> vecPop;
 
-	//current population
-	int currentPop;
+		//max population
+		int popSize;
 
-	//amount of weights(size)
-	int chromoLength;
+		//current population
+		int currentPop;
 
-	//population Fitness
-	double totalFitness;
+		//amount of weights(size)
+		int chromoLength;
 
-	//fittest population
-	double bestFitness;
+		//population Fitness
+		double totalFitness;
 
-	//avg Fitness
-	double avgFitness;
+		//fittest population
+		double bestFitness;
 
-	//worst Fitness
-	double worstFitness;
+		//avg Fitness
+		double avgFitness;
 
-	//fittest genome
-	int fittestGenome;
+		//worst Fitness
+		double worstFitness;
 
-	//count each generation
-	int countGen;
+		//fittest genome
+		int fittestGenome;
 
-	//has ball crossed
-	bool hasCrossed;
+		//count each generation
+		int countGen;
 
-	int lastDistance;
+		//has ball crossed
+		bool hasCrossed;
 
-	//probability that a chromosomes weight will mutate
-	double MUTATION_RATE = 0.1;
-	double CROSSOVER_RATE = 0.7;
+		int lastDistance;
 
-	void Mutate(vector<float> &chromo);
+		//how many plays have been made in current game
+		int plays;
 
-	void Crossover(const vector<double> &mother,
-								 const vector<double> &father,
-								 vector<double> 			&child);
+		//current genome 
+		int curGenome;
 
-	void FindBestWorseAvg();
+		//probability that a chromosomes weight will mutate
+		double MUTATION_RATE = 0.1;
+		double CROSSOVER_RATE = 0.7;
 
-	float CalculateMove(Paddle *p1, Paddle *p2, Ball *ball);
+		void Mutate(vector<float> &chromo);
 
-	float getyVelocity(Paddle *p1, Paddle *p2, Ball *ball, vector<double> &chromo);
+		void Crossover(const vector<double> &mother,
+									 const vector<double> &father,
+									 vector<double> 			&child);
 
-	int GetCrossDistance(Paddle *p1, Ball *ball);
+		void FindBestWorseAvg();
 
-}
+		float CalculateMove(Paddle *p1, Paddle *p2, Ball *ball);
 
+		float GetVelocity(Paddle *p1, Paddle *p2, Ball *ball, vector<double> &chromo);
+
+		int GetCrossDistance(Paddle *p1, Ball *ball);
+
+		Genome GARouletteWheel();
+
+		void MostElite(int NBest, const int xCopies, vector<SGenome> &Pop);
+
+		void Reset(Ball *ball); 
+
+	public:
+		// constructor 
+		CGenAlg(int popsize, double mutationRate, double crossRate, int int numWeights);
+
+		//called when someone has score, -1 if opponent, 1 if player(GA)
+		void AssignFitness(int score);
+
+		vector<Genome> Epoch(vector<Genome> &oldPop);
+
+};
 
 #endif
