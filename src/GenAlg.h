@@ -11,9 +11,6 @@
 #include "src/paddle.h"
 #include "src/ball.h"
 #include "src/utilities.h"
-#include "src/pong.h"
-
-
 
 using namespace std;
 
@@ -98,7 +95,6 @@ class GenAlg
 
 		void FindBestWorseAvg();
 
-		float CalculateMove(Paddle *p1, Paddle *p2, Ball *ball);
 
 		float GetVelocity(Paddle *p1, Paddle *p2, Ball *ball, vector<double> &chromo);
 
@@ -118,6 +114,8 @@ class GenAlg
 		void AssignFitness(int score);
 
 		vector<Genome> Epoch(vector<Genome> &oldPop);
+
+		float CalculateMove(Paddle *p1, Paddle *p2, Ball *ball);
 
 };
 

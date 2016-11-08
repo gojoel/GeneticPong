@@ -8,6 +8,8 @@
 #include "src/paddle.h"
 #include "src/utilities.h"
 
+
+
 // Screen resolution.
 const int Pong::SCREEN_WIDTH = 640;
 const int Pong::SCREEN_HEIGHT = 480;
@@ -36,6 +38,9 @@ Pong::Pong(int argc, char *argv[]) {
     left_paddle = new Paddle(40, SCREEN_HEIGHT/2-Paddle::HEIGHT/2);
     right_paddle = new Paddle(SCREEN_WIDTH-(40+Paddle::WIDTH),
             SCREEN_HEIGHT/2-Paddle::HEIGHT/2);
+
+    //create GA Player
+    GA = new GenAlg(25, 0.1, 0.7, 6);
 
     // Sounds.
 
@@ -213,14 +218,16 @@ void Pong::update() {
     }
 
     // AI paddle movement.
-    left_paddle->AI(ball);
+    //left_paddle->AI(ball);
+    int move = (int)(GA->CalculateMove(left_paddle, right_paddle, ball));
+    left_paddle->moveGA(move);
 
     // Launch ball.
     if (ball->status == ball->READY) {
         return;
     } else if (ball->status == ball->LAUNCH) {
         ball->launch_ball(left_paddle);
-        ball->predicted_y = left_paddle->predict(ball);
+       // ball->predicted_y = left_paddle->predict(ball);
     }
 
     // Update ball speed.
@@ -233,7 +240,7 @@ void Pong::update() {
     } else if (ball->collides_with(right_paddle)) {
         ball->bounces_off(right_paddle);
         // Predict ball position on the y-axis.
-        ball->predicted_y = left_paddle->predict(ball);
+        //ball->predicted_y = left_paddle->predict(ball);
         Mix_PlayChannel(-1, paddle_sound, 0);
     }
 
@@ -253,9 +260,17 @@ void Pong::update() {
         if (ball->x > SCREEN_WIDTH) {
             left_score++;
             left_score_changed = true;
+
+            //for GA
+            GA->AssignFitness(1);
+
+
         } else {
             right_score++;
             right_score_changed = true;
+
+            //for GA
+            GA->AssignFitness(-1);
         }
         Mix_PlayChannel(-1, score_sound, 0);
         ball->reset();

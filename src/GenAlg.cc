@@ -8,10 +8,8 @@
 //
 //-----------------------------------------------------------------------------------------------
 
-#include "src/genalg.h"
+#include "src/GenAlg.h"
 #include "src/pong.h"
-#include "src/paddle.h"
-#include "src/ball.h"
 
 
 //-----------------------------------Constructor-------------------------
@@ -39,7 +37,7 @@ GenAlg::GenAlg(int popsize, double mutationRate, double crossRate,
 		vecPop.push_back(Genome());
 
 		//random weights
-		for (int j = 0; j < chromoLength; ++i){
+		for (int j = 0; j < chromoLength; ++j){
 			vecPop[i].vecWeights.push_back(RandomClamped());
 		}
 	}
@@ -149,11 +147,6 @@ void GenAlg::FindBestWorseAvg(){
 
 float GenAlg::CalculateMove(Paddle *p1, Paddle *p2, Ball *ball){
 
-	//ball not moving
-	if (ball->dx == 0 && ball->dy == 0){
-		ball->reset();
-		//return null;
-	}
 
 	plays++; 
 

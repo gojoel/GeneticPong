@@ -43,6 +43,7 @@ void Paddle::add_to_y(int new_y) {
 }
 
 // Imprecise prediction of ball position on the y-axis.
+/*
 int Paddle::predict(Ball *ball) {
     // Find slope.
     float slope = static_cast<float>(ball->y - ball->y+ball->dy) /
@@ -70,6 +71,11 @@ int Paddle::predict(Ball *ball) {
         predicted_y = Pong::SCREEN_HEIGHT - (predicted_y % Pong::SCREEN_HEIGHT);
 
     return predicted_y;
+}
+*/
+
+void Paddle::moveGA(int move) {
+    add_to_y(move);
 }
 
 // Basic AI movement.

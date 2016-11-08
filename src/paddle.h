@@ -28,6 +28,8 @@ class Paddle {
     void add_to_y(int new_y);
     int predict(Ball *ball); 
     void AI(Ball *ball);
+
+    void moveGA(int move);
 };
 
 #endif  // SRC_PADDLE_H_

@@ -6,14 +6,24 @@
 #include <SDL2/SDL.h>                       // SDL library.
 #include <SDL2/SDL_ttf.h>                   // SDL font library.
 #include <SDL2/SDL_mixer.h>                 // SDL sound library.
-
 #include <string>
+
+
+#include "src/GenAlg.h"
 
 class Ball;
 class Paddle;
+class GenAlg;
+
+using namespace std;
 
 class Pong {
  private:
+
+
+    GenAlg* GA;
+    //vector<Genome>      vecThePopulation;
+
     // Window and renderer.
     SDL_Window* window;  // Holds window properties.
     SDL_Renderer* renderer;  // Holds rendering surface properties.
