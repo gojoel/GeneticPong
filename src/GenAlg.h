@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 #include "src/paddle.h"
 #include "src/ball.h"
@@ -28,8 +29,14 @@ struct Genome
 
 
 	// similar to constructors for classes
-	Genome():dFitness(0.0){}
-	Genome( vector <double> w, double f): vecWeights(w), dFitness(f){}
+	Genome():Fitness(0.0){}
+	Genome( vector <double> w, double f): vecWeights(w), Fitness(f){}
+
+	//overload < for sorting
+	friend bool operator<(const Genome& lhs, const Genome& rhs)
+	{
+		return (lhs.Fitness < rhs.Fitness);
+	}
 
 };
 
@@ -82,11 +89,12 @@ class GenAlg
 		double MUTATION_RATE = 0.1;
 		double CROSSOVER_RATE = 0.7;
 
-		void Mutate(vector<float> &chromo);
+		void Mutate(vector<double> &chromo);
 
 		void Crossover(const vector<double> &mother,
 									 const vector<double> &father,
-									 vector<double> 			&child);
+									 vector<double> 			&child1,
+									 vector<double> 			&child2);
 
 		void FindBestWorseAvg();
 
@@ -98,13 +106,13 @@ class GenAlg
 
 		Genome GARouletteWheel();
 
-		void MostElite(int NBest, const int xCopies, vector<SGenome> &Pop);
+		void MostElite(int NBest, const int xCopies, vector<Genome> &Pop);
 
 		void Reset(Ball *ball); 
 
 	public:
 		// constructor 
-		CGenAlg(int popsize, double mutationRate, double crossRate, int int numWeights);
+		GenAlg(int popsize, double mutationRate, double crossRate, int numWeights);
 
 		//called when someone has score, -1 if opponent, 1 if player(GA)
 		void AssignFitness(int score);

@@ -1,4 +1,4 @@
-// Copyright [2015] <Chafic Najjar>
+
 
 #ifndef SRC_PONG_H_
 #define SRC_PONG_H_

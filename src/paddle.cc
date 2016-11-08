@@ -1,10 +1,10 @@
-// Copyright [2015] <Chafic Najjar>
+
 
 #include "src/paddle.h"
 
 #include "src/ball.h"
 #include "src/pong.h"
-#include "src/GenAlg.h"
+//#include "src/GenAlg.h"
 
 const int Paddle::HEIGHT = 60;
 const int Paddle::WIDTH = 10;

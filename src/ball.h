@@ -1,4 +1,3 @@
-// Copyright [2015] <Chafic Najjar>
 
 #ifndef SRC_BALL_H_
 #define SRC_BALL_H_

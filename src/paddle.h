@@ -1,4 +1,4 @@
-// Copyright [2015] <Chafic Najjar>
+
 
 #ifndef SRC_PADDLE_H_
 #define SRC_PADDLE_H_
@@ -8,11 +8,15 @@ class Ball;
 class Paddle {
  private:
     // Paddle position
-    int x;
-    int y;
+    //int x;
+    //int y;
 
  public:
     Paddle(int x, int y);
+
+     // Paddle position
+    int x;
+    int y;
 
     // Paddle dimensions
     static const int HEIGHT;

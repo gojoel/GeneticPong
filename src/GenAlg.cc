@@ -8,14 +8,16 @@
 //
 //-----------------------------------------------------------------------------------------------
 
-#include "src/GenAlg.h"
-
+#include "src/genalg.h"
+#include "src/pong.h"
+#include "src/paddle.h"
+#include "src/ball.h"
 
 
 //-----------------------------------Constructor-------------------------
 //	sets up the population with random weights
 //-----------------------------------------------------------------------
-GenAlg:GenAlg(int popsize, double mutationRate, double crossRate,
+GenAlg::GenAlg(int popsize, double mutationRate, double crossRate,
 							int numWeights) : popSize(popsize), MUTATION_RATE(mutationRate),
 																									CROSSOVER_RATE(crossRate),
 																									chromoLength(numWeights),
@@ -51,9 +53,9 @@ GenAlg:GenAlg(int popsize, double mutationRate, double crossRate,
 //	performs crossover according to the GAs crossover rate
 //-----------------------------------------------------------------------
 
-void GenAlg:Crossover(const vector<double> &mother,
+void GenAlg::Crossover(const vector<double> &mother,
 											const vector<double> &father,
-											vector<double> 			&child1
+											vector<double> 			&child1,
 											vector<double>			&child2)
 {
 
@@ -68,7 +70,7 @@ void GenAlg:Crossover(const vector<double> &mother,
 	}
 
 	//second half from other parent
-	for (i = crossp; i < mother.size(); i++){
+	for (int i = crossp; i < mother.size(); i++){
 		child1.push_back(father[i]);
 		child2.push_back(mother[i]);
 	}
@@ -85,13 +87,13 @@ void GenAlg:Crossover(const vector<double> &mother,
 void GenAlg::Mutate(vector<double> &chromo)
 {
 
-	for (int i=0; i<chromo.size(); ++i)
+	for (int i = 0; i<chromo.size(); ++i)
 	{
 
 		if (RandFloat() < MUTATION_RATE)
 		{
 			//add or subtract a small value to the weight
-			chromo[i] += (RandomClamped() * 0.3);
+			chromo[i] += (double)(RandomClamped() * 0.3);
 		}
 	}
 }
@@ -104,7 +106,7 @@ void GenAlg::Mutate(vector<double> &chromo)
 //get y velocity
 float GenAlg::GetVelocity(Paddle *p1, Paddle *p2, Ball *ball, vector<double> &chromo)
 {
-	return chromo[5] * ball->dy + chromo[2] * b->y + chromo[3] * p1->y;
+	return chromo[5] * ball->dy + chromo[2] * ball->y + chromo[3] * p1->y;
 }
 
 
@@ -122,14 +124,14 @@ void GenAlg::FindBestWorseAvg(){
 
 	for (int i = 0; i < popSize; ++i){
 
-		if (vecPop[i]).Fitness > highest){
-			highest = vecPop[i]).Fitness;
+		if (vecPop[i].Fitness > highest){
+			highest = vecPop[i].Fitness;
 			fittestGenome = i;
 			bestFitness = highest;
 		}
 
-		if (vecPop[i]).Fitness < lowest){
-			lowest = vecPop[i]).Fitness;
+		if (vecPop[i].Fitness < lowest){
+			lowest = vecPop[i].Fitness;
 			worstFitness = lowest;
 		}
 
@@ -150,15 +152,15 @@ float GenAlg::CalculateMove(Paddle *p1, Paddle *p2, Ball *ball){
 	//ball not moving
 	if (ball->dx == 0 && ball->dy == 0){
 		ball->reset();
-		return null;
+		//return null;
 	}
 
 	plays++; 
 
 	if (!hasCrossed)
-		lastDistance = getCrossDistance(p1, ball);
+		lastDistance = GetCrossDistance(p1, ball);
 
-	float move = getyVelocity(p1, p2, ball, vecPop[curGenome].vecWeights);
+	float move = GetVelocity(p1, p2, ball, vecPop[curGenome].vecWeights);
 
 	return move;
 
@@ -181,9 +183,9 @@ float GenAlg::CalculateMove(Paddle *p1, Paddle *p2, Ball *ball){
 					hasCrossed = true;
 
 					if (ball->y > p1->y)
-						distance = (int) (ball->y - (paddle->y  + paddle->HEIGHT);
+						distance = (int) (ball->y - (p1->y  + p1->HEIGHT));
 					else
-						distance = (int) (paddle->y - (ball->y + ball->LENGTH));
+						distance = (int) (p1->y - (ball->y + ball->LENGTH));
 				}
 
 		return distance;
@@ -278,7 +280,7 @@ vector<Genome> GenAlg::Epoch(vector<Genome> &oldPop){
 	vector <Genome> vecNewPop;
 
 	//add elitism
-	GrabNBest(4, 1, vecNewPop);
+	MostElite(4, 1, vecNewPop);
 
 	while (vecNewPop.size() < popSize){
 
@@ -291,7 +293,7 @@ vector<Genome> GenAlg::Epoch(vector<Genome> &oldPop){
 		Crossover(mother.vecWeights, father.vecWeights, child1, child2);
 
 		Mutate(child1);
-		Mutate(chil2);
+		Mutate(child2);
 
 		vecNewPop.push_back(Genome(child1, 0));
 		vecNewPop.push_back(Genome(child2, 0));
@@ -310,7 +312,7 @@ vector<Genome> GenAlg::Epoch(vector<Genome> &oldPop){
 //	elitism by inserting xCopies
 //  copies of the NBest most fittest genomes into a population vector
 //--------------------------------------------------------------------
-void CGenAlg::MostElite(int NBest, const int xCopies, vector<SGenome> &Pop)
+void GenAlg::MostElite(int NBest, const int xCopies, vector<Genome> &Pop)
 {
   //add the required amount of copies of the n most fittest
 
