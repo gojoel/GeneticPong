@@ -1,12 +1,12 @@
 
-//-----------------------------------------GenAlg.cpp--------------------------------------
+//-----------------------------------------GenAlg.cpp-----------------------------------
 //
 //	Class to create and train genetic a genetic to play pong 
 //  
 //
 //	by Joel Goncalves, Bruna, Mohammad, Rachel
 //
-//-----------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 
 #include "src/GenAlg.h"
 #include "src/pong.h"
@@ -32,6 +32,7 @@ GenAlg::GenAlg(int popsize, double mutationRate, double crossRate,
 																									plays(0)
 
 //init random population, fitness 0
+
 {
 	for (int i = 0; i < popSize; ++i){
 		vecPop.push_back(Genome());
