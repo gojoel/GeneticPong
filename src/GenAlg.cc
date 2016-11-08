@@ -15,6 +15,8 @@
 //-----------------------------------Constructor-------------------------
 //	sets up the population with random weights
 //-----------------------------------------------------------------------
+// array size numWeights
+
 GenAlg::GenAlg(int popsize, double mutationRate, double crossRate,
 							int numWeights) : popSize(popsize), MUTATION_RATE(mutationRate),
 																									CROSSOVER_RATE(crossRate),
@@ -36,10 +38,12 @@ GenAlg::GenAlg(int popsize, double mutationRate, double crossRate,
 {
 	for (int i = 0; i < popSize; ++i){
 		vecPop.push_back(Genome());
+//50 playesr into an Array vecPop
 
 		//random weights
 		for (int j = 0; j < chromoLength; ++j){
 			vecPop[i].vecWeights.push_back(RandomClamped());
+			//random value -1 and 1 
 		}
 	}
 }
@@ -84,6 +88,7 @@ void GenAlg::Crossover(const vector<double> &mother,
 //-----------------------------------------------------------------------
 
 void GenAlg::Mutate(vector<double> &chromo)
+// mutation 0.1
 {
 
 	for (int i = 0; i<chromo.size(); ++i)
@@ -92,6 +97,7 @@ void GenAlg::Mutate(vector<double> &chromo)
 		if (RandFloat() < MUTATION_RATE)
 		{
 			//add or subtract a small value to the weight
+			// 0.3 recommended 
 			chromo[i] += (double)(RandomClamped() * 0.3);
 		}
 	}
@@ -110,7 +116,7 @@ float GenAlg::GetVelocity(Paddle *p1, Paddle *p2, Ball *ball, vector<double> &ch
 
 
 
-//-----------------------FindBestWroseAvg-----------------------	
+//-----------------------FindBestWorstAvg-----------------------	
 //
 //	calculates the fittest and weakest genome and the average/total 
 //	fitness scores
