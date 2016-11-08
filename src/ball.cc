@@ -1,4 +1,4 @@
-
+1
 
 #include "src/ball.h"
 
@@ -17,6 +17,7 @@ namespace {
 
 // Ball dimensions.
 const int Ball::LENGTH = 10;
+// test
 
 Ball::Ball(int x, int y) {
     // Ball status.
