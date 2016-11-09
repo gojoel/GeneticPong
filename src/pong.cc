@@ -40,7 +40,7 @@ Pong::Pong(int argc, char *argv[]) {
             SCREEN_HEIGHT/2-Paddle::HEIGHT/2);
 
     //create GA Player
-    GA = new GenAlg(25, 0.1, 0.7, 6);
+    GA = new GenAlg(25, 0.1, 0.7, 3);
 
     // Sounds.
 

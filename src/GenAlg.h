@@ -83,8 +83,8 @@ class GenAlg
 		int curGenome;
 
 		//probability that a chromosomes weight will mutate
-		double MUTATION_RATE = 0.1;
-		double CROSSOVER_RATE = 0.7;
+		double MUTATION_RATE;
+		double CROSSOVER_RATE;
 
 		void Mutate(vector<double> &chromo);
 
@@ -104,7 +104,7 @@ class GenAlg
 
 		void MostElite(int NBest, const int xCopies, vector<Genome> &Pop);
 
-		void Reset(Ball *ball); 
+		void Reset(); 
 
 	public:
 		// constructor 
@@ -113,7 +113,7 @@ class GenAlg
 		//called when someone has score, -1 if opponent, 1 if player(GA)
 		void AssignFitness(int score);
 
-		vector<Genome> Epoch(vector<Genome> &oldPop);
+		vector<Genome> Populate(vector<Genome> &oldPop);
 
 		float CalculateMove(Paddle *p1, Paddle *p2, Ball *ball);
 
