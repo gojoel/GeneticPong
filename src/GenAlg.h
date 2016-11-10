@@ -93,7 +93,7 @@ class GenAlg
 									 vector<double> 			&child1,
 									 vector<double> 			&child2);
 
-		void FindBestWorseAvg();
+		void FindBestWorstAvg();
 
 
 		float GetVelocity(Paddle *p1, Paddle *p2, Ball *ball, vector<double> &chromo);
