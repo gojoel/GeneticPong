@@ -164,7 +164,7 @@ vector<Genome> GenAlg::Populate(vector<Genome> &oldPop){
 	sort(vecPop.begin(), vecPop.end());
 
 	//calculate best, worst, average and total fitness
-	FindBestWorseAvg();
+	FindBestWorstAvg();
 
 	//temporary vector to store new chromosones
 	vector<Genome> vecNewPop;
@@ -203,7 +203,7 @@ vector<Genome> GenAlg::Populate(vector<Genome> &oldPop){
 //	calculates the fittest and weakest genome and the average/total 
 //	fitness scores
 //---------------------------------------------------------------------
-void GenAlg::FindBestWorseAvg(){
+void GenAlg::FindBestWorstAvg(){
 	totalFitness = 0;
 
 	double highest = 0;
