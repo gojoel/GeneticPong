@@ -79,7 +79,7 @@ class GenAlg
 		//how many plays have been made in current game
 		int plays;
 
-		//current genome 
+		//current genome
 		int curGenome;
 
 		//probability that a chromosomes weight will mutate
@@ -104,10 +104,10 @@ class GenAlg
 
 		void MostElite(int NBest, const int xCopies, vector<Genome> &Pop);
 
-		void Reset(); 
+		void Reset();
 
 	public:
-		// constructor 
+		// constructor
 		GenAlg(int popsize, double mutationRate, double crossRate, int numWeights);
 
 		//called when someone has score, -1 if opponent, 1 if player(GA)
