@@ -47,8 +47,9 @@ class GenAlg
 		//max population
 		int popSize;
 
-		//current population
-		int currentPop;
+		//probability that a chromosomes weight will mutate
+		double MUTATION_RATE;
+		double CROSSOVER_RATE;
 
 		//amount of weights(size)
 		int chromoLength;
@@ -71,20 +72,23 @@ class GenAlg
 		//count each generation
 		int countGen;
 
+		int lastDistance;
+
 		//has ball crossed
 		bool hasCrossed;
 
-		int lastDistance;
-
-		//how many plays have been made in current game
-		int plays;
+		//current population
+		int currentPop;
 
 		//current genome
 		int curGenome;
+		
+		//how many plays have been made in current game
+		int plays;
 
-		//probability that a chromosomes weight will mutate
-		double MUTATION_RATE;
-		double CROSSOVER_RATE;
+
+
+
 
 		void Mutate(vector<double> &chromo);
 
