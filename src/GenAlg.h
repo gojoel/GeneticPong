@@ -82,13 +82,16 @@ class GenAlg
 
 		//current genome
 		int curGenome;
-		
+
 		//how many plays have been made in current game
 		int plays;
 
-
-
-
+		// for solving warning "is not used [-Wunused-private-field]"
+    void ignore_dummy_function_() {
+			CROSSOVER_RATE = 0;
+			countGen = 0;
+			currentPop = 0;
+		 }
 
 		void Mutate(vector<double> &chromo);
 
