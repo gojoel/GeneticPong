@@ -353,10 +353,10 @@ void Pong::render() {
        // Align with score.
         renderTexture(font_image_winner,
                 renderer,
-                SCREEN_WIDTH * 6 / 10 - score_font_size/2, SCREEN_HEIGHT / 4);
+                SCREEN_WIDTH * 1 / 10 - score_font_size/2, SCREEN_HEIGHT / 4);
         renderTexture(font_image_restart,
                 renderer,
-                SCREEN_WIDTH * 6 / 10 - score_font_size/2, SCREEN_HEIGHT / 3);
+                SCREEN_WIDTH * 1 / 10 - score_font_size/2, SCREEN_HEIGHT / 3);
         if (ball->status == ball->LAUNCHED) {
             left_score = 0;
             right_score = 0;
@@ -372,4 +372,3 @@ void Pong::render() {
     // Swap buffers.
     SDL_RenderPresent(renderer);
 }
-
