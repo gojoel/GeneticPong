@@ -180,8 +180,13 @@ vector<Player> GenAlg::Populate(vector<Player> &oldPop){
 	//sort by fitness 
 	sort(Population.begin(), Population.end());
 
+<<<<<<< HEAD
 	//calculate best, average and total fitness
 	FindBest();
+=======
+	//calculate best, worst, average and total fitness
+	FindBestWorstAvg();
+>>>>>>> 5b946c1af1af525f0bd6074ce18c0de95b0ebbd1
 
 	//temporary vector to store new chromosones
 	vector<Player> newPop;
@@ -227,10 +232,14 @@ vector<Player> GenAlg::Populate(vector<Player> &oldPop){
 //	calculates the fittest and weakest player and the average/total 
 //	fitness scores
 //---------------------------------------------------------------------
+<<<<<<< HEAD
 void GenAlg::FindBest(){
 
 
 	// Find the total fitness of the population.
+=======
+void GenAlg::FindBestWorstAvg(){
+>>>>>>> 5b946c1af1af525f0bd6074ce18c0de95b0ebbd1
 	totalFitness = 0;
 
 	double highest = 0;
