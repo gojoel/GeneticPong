@@ -1,0 +1,12 @@
+// Example program
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    vector<vector<vector<double> w, double f>> v;
+
+}

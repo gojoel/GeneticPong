@@ -86,10 +86,12 @@ class Pong {
     // Game status.
     bool exit;  // True when player wants to exit game.
 
+
  public:
     // Screen resolution.
     static const int SCREEN_WIDTH;
     static const int SCREEN_HEIGHT;
+
 
     Pong(int argc, char *argv[]);
     ~Pong();
@@ -97,6 +99,8 @@ class Pong {
     void input();
     void update();
     void render();
+
+    void saveGame();
 };
 
 #endif  // SRC_PONG_H_
