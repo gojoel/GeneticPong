@@ -54,13 +54,6 @@ class GenAlg
 		//max population
 		int popSize;
 
-<<<<<<< HEAD
-=======
-		//probability that a chromosomes weight will mutate
-		double MUTATION_RATE;
-		double CROSSOVER_RATE;
-
->>>>>>> 5b946c1af1af525f0bd6074ce18c0de95b0ebbd1
 		//amount of weights(size)
 		int chromoLength;
 
@@ -79,29 +72,17 @@ class GenAlg
 		//count each generation
 		int countGen;
 
-		int lastDistance;
-
 		//has ball crossed
 		bool ballCrossed;
 
-		//current population
-		int currentPop;
+		int lastDistance;
 
-		//current genome
-		int curGenome;
-		
 		//how many plays have been made in current game
 		int plays;
 
-<<<<<<< HEAD
 		//current player 
 		int curPlayer;
 
-=======
-
-
-
->>>>>>> 5b946c1af1af525f0bd6074ce18c0de95b0ebbd1
 
 		void Mutate(vector<double> &chromo);
 
@@ -110,11 +91,7 @@ class GenAlg
 									 vector<double> 			&child1,
 									 vector<double> 			&child2);
 
-<<<<<<< HEAD
 		void FindBest();
-=======
-		void FindBestWorstAvg();
->>>>>>> 5b946c1af1af525f0bd6074ce18c0de95b0ebbd1
 
 		float Velocity(Paddle *p1, Ball *ball, vector<double> &chromo);
 
@@ -124,20 +101,15 @@ class GenAlg
 
 		void Elitism(int NBest, const int xCopies, vector<Player> &Pop);
 
-		void Reset();
+		void Reset(); 
 
 		void Report();
 
 
 	public:
-<<<<<<< HEAD
 
 		// constructor 
 		GenAlg(int popsize, int numWeights);
-=======
-		// constructor
-		GenAlg(int popsize, double mutationRate, double crossRate, int numWeights);
->>>>>>> 5b946c1af1af525f0bd6074ce18c0de95b0ebbd1
 
 		//called when someone has score, -1 if opponent, 1 if player(GA)
 		void AssignFitness(int score);
