@@ -22,6 +22,9 @@ class Paddle {
     static const int HEIGHT;
     static const int WIDTH;
 
+    static const int MAX_V;
+    static const int MIN_V;
+
     int get_x() const;
     int get_y() const;
     void set_y(int new_y);
@@ -30,6 +33,7 @@ class Paddle {
     void AI(Ball *ball);
 
     void moveGA(int move);
+    int clip(int n, int lower, int upper);
 };
 
 #endif  // SRC_PADDLE_H_

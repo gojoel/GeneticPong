@@ -42,6 +42,8 @@ Pong::Pong(int argc, char *argv[]) {
     //create GA Player
     GA = new GenAlg(25, 3);
 
+    GT = new GATrainer();
+
     // Sounds.
 
     // Initialize SDL_mixer.
@@ -212,16 +214,24 @@ void Pong::update() {
     /*
     if (controller == mouse) {
         // Right paddle follows the player's mouse on the y-axis.
-        right_paddle->set_y(mouse_y);
+       // right_paddle->set_y(mouse_y);
+        left_paddle->set_y(mouse_y);
     } else if (controller == joystick) {
         // Right paddle follows the player's gamepad.
         right_paddle->add_to_y(gamepad_direction);
     }
     */
+    
 
     // AI paddle movement.
-    left_paddle->AI(ball);
+    //left_paddle->AI(ball);
+    int moveGT = (int)(GT->CalculateMove(left_paddle, ball));
+    moveGT = left_paddle->clip(moveGT, Paddle::MIN_V, Paddle::MAX_V);
+    left_paddle->moveGA(moveGT);
+
+
     int move = (int)(GA->CalculateMove(right_paddle, ball));
+    move = right_paddle->clip(move, Paddle::MIN_V, Paddle::MAX_V);
     right_paddle->moveGA(move);
 
     // Launch ball.
@@ -229,7 +239,7 @@ void Pong::update() {
         ball->status = ball->LAUNCH;
     } else if (ball->status == ball->LAUNCH) {
         ball->launch_ball(left_paddle);
-        ball->predicted_y = left_paddle->predict(ball);
+        //ball->predicted_y = left_paddle->predict(ball);
     }
 
     // Update ball speed.
@@ -242,7 +252,7 @@ void Pong::update() {
     } else if (ball->collides_with(right_paddle)) {
         ball->bounces_off(right_paddle);
         // Predict ball position on the y-axis.
-        ball->predicted_y = left_paddle->predict(ball);
+        //ball->predicted_y = left_paddle->predict(ball);
         Mix_PlayChannel(-1, paddle_sound, 0);
     }
 

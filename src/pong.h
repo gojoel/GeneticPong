@@ -10,6 +10,7 @@
 
 
 #include "src/GenAlg.h"
+#include "src/GATrainer.h"
 
 class Ball;
 class Paddle;
@@ -23,6 +24,8 @@ class Pong {
 
     GenAlg* GA;
     //vector<Genome>      vecThePopulation;
+
+    GATrainer* GT; 
 
     // Window and renderer.
     SDL_Window* window;  // Holds window properties.

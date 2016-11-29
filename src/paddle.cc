@@ -10,6 +10,11 @@
 const int Paddle::HEIGHT = 60;
 const int Paddle::WIDTH = 10;
 
+
+const int Paddle::MAX_V = 10;
+const int Paddle::MIN_V = -10;
+
+
 Paddle::Paddle(int new_x, int new_y) {
     x = new_x;
     y = new_y;
@@ -97,6 +102,10 @@ void Paddle::AI(Ball *ball) {
         else if (y + HEIGHT / 2 > Pong::SCREEN_HEIGHT/2)
             add_to_y(-2);
     }
+}
+
+int Paddle::clip(int n, int lower, int upper) {
+  return std::max(lower, std::min(n, upper));
 }
 
 
