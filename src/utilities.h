@@ -11,10 +11,10 @@
 inline int RandInt(int x, int y) { return rand () % (y - x + 1) + x; }
 
 //returns a random float between zero and 1
-inline double RandFloat() { return (rand()) / (RAND_MAX + 1.0); }
+inline double Random() { return (rand()) / (RAND_MAX + 1.0); }
 
 //returns a random float in the range -1 < n < 1
-inline double RandomClamped() { return RandFloat() - RandFloat();}
+inline double RandomClamped() { return Random() - Random();}
 
 
 void renderTexture(SDL_Texture *tex,

@@ -5,9 +5,15 @@
 #include "src/ball.h"
 #include "src/pong.h"
 //#include "src/GenAlg.h"
+#include <cmath>
 
 const int Paddle::HEIGHT = 60;
 const int Paddle::WIDTH = 10;
+
+
+const int Paddle::MAX_V = 10;
+const int Paddle::MIN_V = -10;
+
 
 Paddle::Paddle(int new_x, int new_y) {
     x = new_x;
@@ -43,7 +49,7 @@ void Paddle::add_to_y(int new_y) {
 }
 
 // Imprecise prediction of ball position on the y-axis.
-/*
+
 int Paddle::predict(Ball *ball) {
     // Find slope.
     float slope = static_cast<float>(ball->y - ball->y+ball->dy) /
@@ -54,7 +60,7 @@ int Paddle::predict(Ball *ball) {
 
     // Prediction without taking into consideration upper and
     // bottom wall collisions.
-    int predicted_y = abs(slope * -(paddle_distance) + ball->y);
+    int predicted_y = abs(slope * (-(paddle_distance)) + ball->y);
 
     // Calculate number of reflexions.
     int number_of_reflexions = predicted_y / Pong::SCREEN_HEIGHT;
@@ -72,7 +78,7 @@ int Paddle::predict(Ball *ball) {
 
     return predicted_y;
 }
-*/
+
 
 void Paddle::moveGA(int move) {
     add_to_y(move);
@@ -96,6 +102,10 @@ void Paddle::AI(Ball *ball) {
         else if (y + HEIGHT / 2 > Pong::SCREEN_HEIGHT/2)
             add_to_y(-2);
     }
+}
+
+int Paddle::clip(int n, int lower, int upper) {
+  return std::max(lower, std::min(n, upper));
 }
 
 

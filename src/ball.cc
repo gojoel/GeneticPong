@@ -19,6 +19,8 @@ namespace {
 const int Ball::LENGTH = 10;
 // test
 
+const int Ball::MAX_SPEED = 12;
+
 Ball::Ball(int x, int y) {
     // Ball status.
     status = READY;

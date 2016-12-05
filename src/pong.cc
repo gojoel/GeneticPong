@@ -40,7 +40,9 @@ Pong::Pong(int argc, char *argv[]) {
             SCREEN_HEIGHT/2-Paddle::HEIGHT/2);
 
     //create GA Player
-    GA = new GenAlg(25, 0.1, 0.7, 3);
+    GA = new GenAlg(25, 3);
+
+    GT = new GATrainer();
 
     // Sounds.
 
@@ -209,25 +211,35 @@ void Pong::input() {
 void Pong::update() {
     // Paddle movement.
 
+    /*
     if (controller == mouse) {
         // Right paddle follows the player's mouse on the y-axis.
-        right_paddle->set_y(mouse_y);
+       // right_paddle->set_y(mouse_y);
+        left_paddle->set_y(mouse_y);
     } else if (controller == joystick) {
         // Right paddle follows the player's gamepad.
         right_paddle->add_to_y(gamepad_direction);
     }
+    */
+    
 
     // AI paddle movement.
     //left_paddle->AI(ball);
-    int move = (int)(GA->CalculateMove(left_paddle, right_paddle, ball));
-    left_paddle->moveGA(move);
+    int moveGT = (int)(GT->CalculateMove(left_paddle, ball));
+    moveGT = left_paddle->clip(moveGT, Paddle::MIN_V, Paddle::MAX_V);
+    left_paddle->moveGA(moveGT);
+
+
+    int move = (int)(GA->CalculateMove(right_paddle, ball));
+    move = right_paddle->clip(move, Paddle::MIN_V, Paddle::MAX_V);
+    right_paddle->moveGA(move);
 
     // Launch ball.
     if (ball->status == ball->READY) {
-        return;
+        ball->status = ball->LAUNCH;
     } else if (ball->status == ball->LAUNCH) {
         ball->launch_ball(left_paddle);
-       // ball->predicted_y = left_paddle->predict(ball);
+        //ball->predicted_y = left_paddle->predict(ball);
     }
 
     // Update ball speed.
@@ -264,7 +276,6 @@ void Pong::update() {
             //for GA
             GA->AssignFitness(1);
 
-
         } else {
             right_score++;
             right_score_changed = true;
@@ -275,6 +286,7 @@ void Pong::update() {
         Mix_PlayChannel(-1, score_sound, 0);
         ball->reset();
     }
+
 }
 
 // Render objects on screen.
@@ -301,6 +313,7 @@ void Pong::render() {
     // Render ball.
     SDL_Rect pong_ball = { ball->x, ball->y, ball->LENGTH, ball->LENGTH };
     SDL_RenderFillRect(renderer, &pong_ball);
+
 
     // Render scores.
     if (left_score_changed) {
@@ -372,3 +385,12 @@ void Pong::render() {
     // Swap buffers.
     SDL_RenderPresent(renderer);
 }
+<<<<<<< HEAD
+=======
+
+
+void Pong::saveGame(){
+    GA->savePopulation();
+}
+
+>>>>>>> origin/master

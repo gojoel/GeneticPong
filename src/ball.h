@@ -15,6 +15,7 @@ class Ball {
 
         // Ball dimensions
         static const int LENGTH;
+        static const int MAX_SPEED;
 
         // Ball position
         int x;

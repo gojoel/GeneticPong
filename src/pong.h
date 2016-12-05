@@ -10,6 +10,7 @@
 
 
 #include "src/GenAlg.h"
+#include "src/GATrainer.h"
 
 class Ball;
 class Paddle;
@@ -23,6 +24,8 @@ class Pong {
 
     GenAlg* GA;
     //vector<Genome>      vecThePopulation;
+
+    GATrainer* GT; 
 
     // Window and renderer.
     SDL_Window* window;  // Holds window properties.
@@ -86,10 +89,12 @@ class Pong {
     // Game status.
     bool exit;  // True when player wants to exit game.
 
+
  public:
     // Screen resolution.
     static const int SCREEN_WIDTH;
     static const int SCREEN_HEIGHT;
+
 
     Pong(int argc, char *argv[]);
     ~Pong();
@@ -97,6 +102,8 @@ class Pong {
     void input();
     void update();
     void render();
+
+    void saveGame();
 };
 
 #endif  // SRC_PONG_H_
