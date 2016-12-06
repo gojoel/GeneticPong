@@ -4,7 +4,7 @@
 GATrainer::GATrainer(){
 
 	int count = 0;
-	double data; 
+	double data;
 
 	v.push_back(0.326105);
 	v.push_back(-0.377515);
@@ -32,11 +32,18 @@ GATrainer::GATrainer(){
 
 	*/
 
+	// for solving warning "is not used [-Wunused-private-field]"
+		 data = 0;
+		 count =  0;
+
+
 }
+
+
 
 float GATrainer::CalculateMove(Paddle *p1, Ball *ball){
 
-	
+
 	float move = Velocity(p1, ball, v);
 
 	return move;
@@ -49,8 +56,3 @@ float GATrainer::Velocity(Paddle *p1, Ball *ball, vector<double> &chromo)
 
 	return velocity;
 }
-
-
-
-
-
