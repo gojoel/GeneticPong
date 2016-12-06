@@ -72,30 +72,32 @@ class GenAlg
 		//count each generation
 		int countGen;
 
+		int lastDistance;
 		//has ball crossed
 		bool ballCrossed;
 
-		int lastDistance;
-
-// HEAD
-		//current genome
-		int curGenome;
+		//current player
+		int curPlayer;
 
 		//how many plays have been made in current game
 		int plays;
 
+		// HEAD
+				//current genome
+				int curGenome;
+
 		// for solving warning "is not used [-Wunused-private-field]"
-  //  void ignore_dummy_function_() {
-		//	CROSSOVER_RATE = 0;
-	//		countGen = 0;
-	//		currentPop = 0;
-	//	 }
-//
+    void ignore_dummy_function_() {
+			//CROSSOVER_RATE ;
+			countGen = 0;
+			curGenome = 0;
+			//currentPop = 0;
+  	 }
+
 		//how many plays have been made in current game
 		//int plays;
 
-		//current player
-		int curPlayer;
+
 
 // origin/master
 
