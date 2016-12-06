@@ -221,7 +221,7 @@ void Pong::update() {
         right_paddle->add_to_y(gamepad_direction);
     }
     */
-    
+
 
     // AI paddle movement.
     //left_paddle->AI(ball);
@@ -385,8 +385,7 @@ void Pong::render() {
     // Swap buffers.
     SDL_RenderPresent(renderer);
 }
-<<<<<<< HEAD
-=======
+// HEAD
 
 
 void Pong::saveGame(){

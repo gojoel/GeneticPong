@@ -85,14 +85,14 @@ class GenAlg
 		int plays;
 
 		// for solving warning "is not used [-Wunused-private-field]"
-    void ignore_dummy_function_() {
-			CROSSOVER_RATE = 0;
-			countGen = 0;
-			currentPop = 0;
-		 }
+  //  void ignore_dummy_function_() {
+		//	CROSSOVER_RATE = 0;
+	//		countGen = 0;
+	//		currentPop = 0;
+	//	 }
 //
 		//how many plays have been made in current game
-		int plays;
+		//int plays;
 
 		//current player
 		int curPlayer;
