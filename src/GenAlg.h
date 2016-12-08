@@ -66,40 +66,41 @@ class GenAlg
 		//avg Fitness
 		double avgFitness;
 
+		//worst Fitness
+		double worstFitness;
+
 		//fittest player
 		int fittestPlayer;
 
 		//count each generation
 		int countGen;
 
-		int lastDistance;
 		//has ball crossed
 		bool ballCrossed;
 
-		//current player
-		int curPlayer;
+		int lastDistance;
+
+<<<<<<< HEAD
+		//current genome
+		int curGenome;
 
 		//how many plays have been made in current game
 		int plays;
 
-		// HEAD
-				//current genome
-				int curGenome;
-
 		// for solving warning "is not used [-Wunused-private-field]"
     void ignore_dummy_function_() {
-			//CROSSOVER_RATE ;
+			CROSSOVER_RATE = 0;
 			countGen = 0;
-			curGenome = 0;
-			//currentPop = 0;
-  	 }
-
+			currentPop = 0;
+		 }
+=======
 		//how many plays have been made in current game
-		//int plays;
+		int plays;
 
+		//current player 
+		int curPlayer;
 
-
-// origin/master
+>>>>>>> origin/master
 
 		void Mutate(vector<double> &chromo);
 
@@ -118,14 +119,14 @@ class GenAlg
 
 		void Elitism(int NBest, const int xCopies, vector<Player> &Pop);
 
-		void Reset();
+		void Reset(); 
 
 		void Report();
 
 
 	public:
 
-		// constructor
+		// constructor 
 		GenAlg(int popsize, int numWeights);
 
 		//called when someone has score, -1 if opponent, 1 if player(GA)
