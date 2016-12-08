@@ -1,28 +1,28 @@
 
 /*-----------------------------------------GenAlg.cpp-----------------------------------
 *
-* Class to create and train a genetic program to play pong  
-* 
+* Class to create and train a genetic program to play pong
+*
 * Initializes a population of Players
 *	- Each Player contains vector of weights that encodes its behavior
-* 	- Each Player also contains a recorded fitness 
+* 	- Each Player also contains a recorded fitness
 * 	- Each Player within a population is played, and fitness is assigned accordingly
 * 	- Thereafter, a new population is generated as a genetic modification of the last
 *
 * Fitness is determined as following:
 *	1. Genetic player scores
 *	2. Distance missed from ball
-*	3. How many plays made in current game 
+*	3. How many plays made in current game
 
 * Re-population:
-*	- Find the most/least fit player, and avg fitness of population 
+*	- Find the most/least fit player, and avg fitness of population
 *	- Sort population from least to most fit
 *	- Add 'n' number of the most fit players from last pop to new
 * 		- Adding 'x' copies of each
 *  	- Use Roulette wheel sampling to choose parents
 * 		- Create children using crossover and mutation
 * 		- Add to new population
-* 		- Repeat genetic algorithm 
+* 		- Repeat genetic algorithm
 *
 *	by Joel Goncalves, Bruna, Mohammad, Rachel
 --------------------------------------------------------------------------------------
@@ -51,10 +51,10 @@ GenAlg::GenAlg(int popsize, int numWeights) : popSize(popsize), chromoLength(num
 
 	if (saved.peek() != std::ifstream::traits_type::eof()){
 		loadPopulation();
-	} 
+	}
 
 	else {
-		// Loop and create players
+		// Loop and create players  - run 25 times
 		for (int i = 0; i < popSize; ++i){
 			Population.push_back(Player());
 
@@ -68,15 +68,15 @@ GenAlg::GenAlg(int popsize, int numWeights) : popSize(popsize), chromoLength(num
 	countGen++;
 }
 
-//-----------------------CalculateMove()-----------------------	
+//-----------------------CalculateMove()-----------------------
 //
-//	calculates how fast the paddle should move 
-// 	called from pong.cc for each move of the GA paddle 
+//	calculates how fast the paddle should move
+// 	called from pong.cc for each move of the GA paddle
 //---------------------------------------------------------------------
 
 float GenAlg::CalculateMove(Paddle *p1, Ball *ball){
 
-	plays++; 
+	plays++;
 
 	if (!ballCrossed)
 		lastDistance = CrossDistance(p1, ball);
@@ -87,14 +87,14 @@ float GenAlg::CalculateMove(Paddle *p1, Ball *ball){
 
 }
 
-//-----------------------CrossDistance()-----------------------	
+//-----------------------CrossDistance()-----------------------
 //
-//  checks if paddle has missed ball 
-//	calculates the distance paddle missed 
+//  checks if paddle has missed ball
+//	calculates the distance paddle missed
 // 	used to assign fitness scores
 //---------------------------------------------------------------------
 
-// returns the distance paddle missed -- used to assign fitness 
+// returns the distance paddle missed -- used to assign fitness
  int GenAlg::CrossDistance(Paddle *p1, Ball *ball){
 
 	 int distance = 0;
@@ -120,6 +120,9 @@ float GenAlg::CalculateMove(Paddle *p1, Ball *ball){
 float GenAlg::Velocity(Paddle *p1, Ball *ball, vector<double> &chromo)
 {
 	// find best weights to calculate speed to move and position
+	// ball->dy -> speed
+	// ball->y --> position ball
+	// p1->y --> position of paddle
 	double velocity = chromo[2] * ball->dy + chromo[0] * ball->y + chromo[1] * p1->y;
 
 	return velocity;
@@ -128,8 +131,8 @@ float GenAlg::Velocity(Paddle *p1, Ball *ball, vector<double> &chromo)
 
 //----------------------------------AssignFitness()------------------
 //
-//	evaluate player fitness in population 
-//  called from pong.cc each time a player has score 
+//	evaluate player fitness in population
+//  called from pong.cc each time a player has score
 //	used to assign fitness
 //-----------------------------------------------------------------------
 
@@ -161,13 +164,13 @@ float GenAlg::Velocity(Paddle *p1, Ball *ball, vector<double> &chromo)
 
     if (curPlayer >= Population.size()){
     	Population = Populate(Population);
-    	curPlayer = 0; 
+    	curPlayer = 0;
     }
  }
 
  //-----------------------------------Populate()-----------------------------
 //
-//	takes a population and runs the GA algorithm once 
+//	takes a population and runs the GA algorithm once
 //	Returns a new population
 //-----------------------------------------------------------------------
 
@@ -177,7 +180,7 @@ vector<Player> GenAlg::Populate(vector<Player> &oldPop){
 
 	Reset();
 
-	//sort by fitness 
+	//sort by fitness
 	sort(Population.begin(), Population.end());
 
 	//calculate best, average and total fitness
@@ -190,7 +193,7 @@ vector<Player> GenAlg::Populate(vector<Player> &oldPop){
 	Elitism(4, 1, newPop);
 
 
-	// Loop over the population size and create new players 
+	// Loop over the population size and create new players
 	while (newPop.size() < popSize){
 
 		Player mother = GARouletteWheel();
@@ -222,9 +225,9 @@ vector<Player> GenAlg::Populate(vector<Player> &oldPop){
 }
 
 
-//-----------------------FindBest()-----------------------	
+//-----------------------FindBest()-----------------------
 //
-//	calculates the fittest and weakest player and the average/total 
+//	calculates the fittest and weakest player and the average/total
 //	fitness scores
 //---------------------------------------------------------------------
 void GenAlg::FindBest(){
@@ -286,14 +289,14 @@ Player GenAlg::GARouletteWheel(){
 	for (int i = 0; i < popSize; ++i)
 	{
 		fitness_sum += Population[i].Fitness;
-		
-		//if the fitness so far > random number return the chromo at 
+
+		//if the fitness so far > random number return the chromo at
 		//this point
 		if (fitness_sum >= randomFitness)
 		{
 			chosenOne = Population[i];
       		break;
-		}	
+		}
 	}
 
 	return chosenOne;
@@ -314,27 +317,22 @@ void GenAlg::Crossover(const vector<double> &mother,
 	if ( Random() < CROSSOVER_RATE){
 		//choosing a cross-over point
 		int crossp = RandInt(0, chromoLength - 1);
-
 		//first half from parent
 		for (int i = 0; i < crossp; ++i){
 			child1.push_back(mother[i]);
 			child2.push_back(father[i]);
 		}
-
 		//second half from other parent
 		for (int i = crossp; i < mother.size(); i++){
 			child1.push_back(father[i]);
 			child2.push_back(mother[i]);
 		}
 	}
-	
 	// just return parents
 	else {
-
 		child1 = father;
 		child2 = mother;
 	}
-
 }
 
 
@@ -354,7 +352,7 @@ void GenAlg::Mutate(vector<double> &chromo)
 		if (Random() < MUTATION_RATE)
 		{
 			//add or subtract a small value to the weight
-			// 0.3 recommended 
+			// 0.3 recommended
 			chromo[i] += (double)(RandomClamped() * 0.3);
 		}
 	}
@@ -393,7 +391,7 @@ void GenAlg::savePopulation(){
 			for (int j = 0; j < saveCopy[i].vecWeights.size(); j++){
 				save << saveCopy[i].vecWeights[j] << "\t";
 			}
-			//save << saveCopy[i].Fitness; 
+			//save << saveCopy[i].Fitness;
 			save << endl;
 		}
 
@@ -414,7 +412,7 @@ void GenAlg::savePopulation(){
 void GenAlg::loadPopulation(){
 
 	vector<double> dataVec;
-	int counter = 0; 
+	int counter = 0;
 	double data;
 
 	ifstream saved ("generations.txt");
@@ -444,7 +442,7 @@ void GenAlg::loadPopulation(){
 	}
 
 	//cout << "DEBUG: loadPopulation counter = " + to_string(counter) << endl;
-}	
+}
 
 
 
@@ -454,9 +452,8 @@ void GenAlg::loadPopulation(){
 
 
 void GenAlg::Report(){
-	cout << "Generation " + to_string(countGen) + ": Average Fitness = " + 
+	cout << "Generation " + to_string(countGen) + ": Average Fitness = " +
 				to_string(avgFitness) + ", Best Fitness = " + to_string(bestFitness) << endl;
 
 
 }
-

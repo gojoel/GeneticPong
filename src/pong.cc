@@ -39,7 +39,9 @@ Pong::Pong(int argc, char *argv[]) {
     right_paddle = new Paddle(SCREEN_WIDTH-(40+Paddle::WIDTH),
             SCREEN_HEIGHT/2-Paddle::HEIGHT/2);
 
-    //create GA Player
+    //create GA Player 25 population(Players) and 3 arrays
+    
+
     GA = new GenAlg(25, 3);
 
     GT = new GATrainer();
