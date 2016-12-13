@@ -66,6 +66,9 @@ class GenAlg
 		//avg Fitness
 		double avgFitness;
 
+		//worst Fitness
+		double worstFitness;
+
 		//fittest player
 		int fittestPlayer;
 
@@ -122,7 +125,7 @@ class GenAlg
 
 		void Report();
 
-
+		void NormalizeFit(vector<Player> &pop);
 	public:
 
 		// constructor
