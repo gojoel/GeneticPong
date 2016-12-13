@@ -30,6 +30,7 @@
 
 #include "src/GenAlg.h"
 #include "src/pong.h"
+#include <float.h>
 
 //-----------------------------------Constructor-------------------------
 //	create a population with random weights
@@ -126,7 +127,6 @@ float GenAlg::Velocity(Paddle *p1, Ball *ball, vector<double> &chromo)
 	return velocity;
 }
 
-
 //----------------------------------AssignFitness()------------------
 //
 //	evaluate player fitness in population 
@@ -162,10 +162,30 @@ float GenAlg::Velocity(Paddle *p1, Ball *ball, vector<double> &chromo)
     ++curPlayer;
 
     if (curPlayer >= Population.size()){
+	NormalizeFit();
     	Population = Populate(Population);
     	curPlayer = 0; 
     }
  }
+
+//----------------------------------NormalizeFit()------------------
+//
+//	evaluate player fitness in population 
+//  called from pong.cc each time a player has score 
+//	used to assign fitness
+//-----------------------------------------------------------------------
+
+void GenAlg::NormalizeFit(){
+	double lowest = DBL_MAX;
+	for (Player p : Population){
+		if (p.Fitness < lowest){
+			lowest = p.Fitness;
+		}
+	}
+	for (Player p : Population){
+		p.Fitness -= (lowest - 1);
+	}
+}
 
  //-----------------------------------Populate()-----------------------------
 //
@@ -235,7 +255,7 @@ void GenAlg::FindBest(){
 	// Find the total fitness of the population.
 //	totalFitness = 0;
 
-	double highest = -DBL_MAX;
+	double highest = DBL_MAX * -1;
 	double lowest = DBL_MAX;
 
 	for (int i = 0; i < popSize; ++i){
@@ -284,8 +304,7 @@ void GenAlg::Elitism(int nBest, const int xCopies, vector<Player> &Pop)
 
 Player GenAlg::GARouletteWheel(){
 	double range = bestFitness - worstFitness; 
-//	double randomFitness = (double)(Random() * totalFitness);
-	double randomFitness = (double)(Random() * range) - worstFitness;
+	double randomFitness = (double)(Random() * totalFitness);
 
 	Player chosenOne;
 
